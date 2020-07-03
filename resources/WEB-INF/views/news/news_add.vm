@@ -1,3 +1,4 @@
+#set($ctx=$!{request.getContextPath()})
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../css/layui.css" media="all">
-    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="${ctx}/css/layui.css" media="all">
+    <link rel="stylesheet" href="${ctx}/css/common.css">
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -20,11 +21,11 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="updateAdmin.html" >
-                   	 <img src="../img/abc.jpg" class="layui-nav-img layui-anim layui-anim-rotate"/>
+                   	 <img src="${ctx}/img/abc.jpg" class="layui-nav-img layui-anim layui-anim-rotate"/>
                    	 <span id="user_name"></span>
                 </a>
             </li>
-            <li class="layui-nav-item"><a href="/SSM_CMS/signout.do">退出</a></li>
+            <li class="layui-nav-item"><a href="${ctx}/signout.do">退出</a></li>
         </ul>
     </div>
         <div class="layui-side layui-bg-black">
@@ -57,7 +58,7 @@
             <!--当前位置结束-->
             <div class="layui-row">
                 <div class="layui-tab" id="system">
-                    <form class="layui-form" action="/SSM_CMS/addNews.do" method="post" id="system_form">
+                    <form class="layui-form" action="${ctx}/news/addNews.do" method="post" id="system_form">
                         <div class="layui-form-item">
                             <label class="layui-form-label">文章标题</label>
                             <div class="layui-input-block">
@@ -67,13 +68,13 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">关键字</label>
                             <div class="layui-input-block">
-                                <input type="text" name="keyword" required  lay-verify="required" placeholder="请输入关键字，新站可为空" autocomplete="off" class="layui-input">
+                                <input type="text" name="keyword" required  lay-verify="required" placeholder="请输入关键字" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">描述</label>
                             <div class="layui-input-block">
-                                <input type="text" name="descs" required  lay-verify="required" placeholder="请输入描述，新站可为空" autocomplete="off" class="layui-input">
+                                <textarea name="desc" required  lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -88,15 +89,15 @@
                                 <button class="layui-btn layui-btn-xs" id="addclass">添加分类</button>
                             </div>
                         </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">封面图</label>
-                            <div class="layui-input-inline" id="ds">
-                                <button type="button" class="layui-btn layui-btn-primary" id="newadd">
-                                    <i class="layui-icon"></i>上传图片
-                                </button>
-                                <input class="layui-upload-file" type="file" accept="undefined" name="imgsg">
-                            </div>
-                        </div>
+##                        <div class="layui-form-item">
+##                            <label class="layui-form-label">封面图</label>
+##                            <div class="layui-input-inline" id="ds">
+##                                <button type="button" class="layui-btn layui-btn-primary" id="newadd">
+##                                    <i class="layui-icon"></i>上传图片
+##                                </button>
+##                                <input class="layui-upload-file" type="file" accept="undefined" name="imgsg">
+##                            </div>
+##                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">来源</label>
                             <div class="layui-input-inline">
@@ -125,14 +126,14 @@
         © 版权管理
     </div>
     </div>
-    <script src="../js/layui.js" charset="utf-8"></script>
-    <script src="../js/jquery-3.3.1.js"></script>
-    <script src="../js/common.js"></script>
-    <script src="../js/jquery.cookie.js"></script>
+    <script src="${ctx}/js/layui.js" charset="utf-8"></script>
+    <script src="${ctx}/js/jquery-3.3.1.js"></script>
+    <script src="${ctx}/js/common.js"></script>
+    <script src="${ctx}/js/jquery.cookie.js"></script>
 </body>
 <!--添加分类弹窗-->
 <div id="addclassform">
-    <form action="/SSM_CMS/addType.do" class="layui-form">
+    <form action="${ctx}/news/addType.do" class="layui-form">
         <div class="layui-form-item">
             <label class="layui-form-label">分类名称</label>
             <div class="layui-input-inline">
@@ -150,6 +151,9 @@
 </div>
 
 <script type="text/javascript">
+    var contextPath = '${ctx}';
+</script>
+<script type="text/javascript">
 
 $(function () {
 	dept_id();
@@ -157,7 +161,7 @@ $(function () {
 var str = "";
 function dept_id() {
 	$.ajax({
-		 url : "/SSM_CMS/selectType.do",
+		 url : "${ctx}/news/selectType.do",
          type : "get",
          success : function (m) {
         	 var arry = JSON.parse(m);

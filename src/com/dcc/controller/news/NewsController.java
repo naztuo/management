@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 
 import java.io.File;
 import java.util.HashMap;
@@ -25,6 +26,16 @@ public class NewsController {
 	public String gotoNews(){
 		return "news/news";
 	}
+
+	@RequestMapping("/news_add.html")
+	public String gotoAddNews(){
+		return "news/news_add";
+	}
+
+	@RequestMapping("/news_update.html")
+	public String gotoUpdateNews(){
+		return "news/news_update";
+	}
 	
 	@RequestMapping(value="/selectType.do",produces="text/html;charset=UTF-8;")
 	@ResponseBody
@@ -38,13 +49,11 @@ public class NewsController {
 	@ResponseBody
 	public String updateImgs(MultipartFile imgsg) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
-			String yimg  = imgsg.getOriginalFilename();//��ȡͼƬԭʼ����
+			String yimg  = imgsg.getOriginalFilename();
 			if(imgsg!=null && yimg!=null && yimg.length()>0) {
-				String path = "E:\\apache-tomcat-9.0.11\\webapps\\test\\";
-				File file = new File(path+yimg);
-				imgsg.transferTo(file);//д�����
 				map.put("state", "1");
-				map.put("names", yimg);
+				map.put("name", yimg);
+				map.put("file", multipartFileToBase64(imgsg));
 			}
 		return JSON.toJSONString(map);
 	}
@@ -52,9 +61,9 @@ public class NewsController {
 	@RequestMapping("/addNews.do")
 	public String addNews(News news) throws Exception {
 		newsService.addNews(news);
-		return "redirect:/html/news.vm";
+		return "news/news";
 	}
-	
+
 	@RequestMapping("/counts.do")
 	@ResponseBody
 	public String counts() throws Exception {
@@ -93,13 +102,13 @@ public class NewsController {
 	@RequestMapping("/updatenew.do")
 	public String updatenew(News news) throws Exception {
 		newsService.updateNew(news);
-		return "redirect:/html/news.vm";
+		return "news/news";
 	}
 	
 	@RequestMapping("/addType.do")
 	public String addType(NewsType type) throws Exception {
 		newsService.addNewsType(type);
-		return "redirect:/html/news_add.vm";
+		return "news/news_add";
 	}
 	
 	@RequestMapping(value="/searchnews.do",produces="text/html;charset=UTF-8;")
@@ -107,6 +116,13 @@ public class NewsController {
 	public String searchnews(String title) throws Exception {
 		String search = newsService.searchNew(title);
 		return  search;
+	}
+
+
+	public String multipartFileToBase64(MultipartFile file) throws Exception {
+		BASE64Encoder base64Encoder = new BASE64Encoder();
+		String base64EncoderImg = base64Encoder.encode(file.getBytes());
+		return base64EncoderImg;
 	}
 
 }

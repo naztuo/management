@@ -58,7 +58,7 @@ function newslists(arry) {
         str += "<td>" + arry[i]["author"] + "</td>";
         str += "<td>" + arry[i]["datas"] + "</td>";
         str += "<td>";
-        str += "<a href=" + arry[i]["id"] + "'news_update.vm?result=' class='layui-btn layui-btn-xs'><i class='layui-icon layui-icon-edit'></i>修改</a>";
+        str += "<a href='news_update.html?result="+arry[i]["id"]+"' class='layui-btn layui-btn-xs'><i class='layui-icon layui-icon-edit'></i>修改</a>";
         str += "<a class='layui-btn layui-btn-danger layui-btn-xs new_dels' rel='" + arry[i]["id"] + "'><i class='layui-icon layui-icon-delete'></i>删除</a>";
         str += "</td>";
         str += "<td> <input type='checkbox' value='" + arry[i]["id"] + "'></td>"
@@ -91,7 +91,7 @@ function dd() {
             btn: ['确定', '取消'],
             yes: function (index, layero) {
                 $.ajax({
-                    url: "/SSM_CMS/delnews.do",
+                    url: contextPath+"/news/delnews.do",
                     type: "post",
                     data: {
                         "result": ids,
