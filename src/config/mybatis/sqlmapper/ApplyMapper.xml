@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcc.dao.ApplyMapper">
+
+<select id="countApply" resultType="int">
+SELECT COUNT(*) FROM apply_info
+</select>
+
+<select id="fenyeApply" resultType="Apply" parameterType="int">
+  SELECT `apply_id`,`apply_name`, `apply_phone`, `apply_content`, `status`, `apply_time`
+  FROM apply_info order by apply_time desc LIMIT #{num}, 5;
+
+</select>
+
+<delete id="deleteApply" parameterType="int">
+
+  DELETE FROM apply_info WHERE apply_id = #{id}
+</delete>
+
+
+<delete id="delsApply" parameterType="String">
+	DELETE FROM apply_info WHERE id IN
+	<foreach collection="array" item="id" open="(" separator=","
+		close=")">
+		#{id}
+	</foreach>
+</delete>
+
+<select id="findIdApply" parameterType="int" resultType="Apply">
+SELECT * FROM apply_info WHERE id = #{id}
+</select>
+
+<update id="updateApply" parameterType="Apply">
+UPDATE Apply SET apply_name =#{apply_name},apply_content=#{apply_content},status=#{status} WHERE apply_id = #{id}
+</update>
+
+
+<select id="searchApply" parameterType="String" resultType="Apply">
+SELECT * FROM apply_info WHERE apply_name LIKE '%${title}%' or apply_content LIKE '%${title}%'
+</select>
+</mapper>

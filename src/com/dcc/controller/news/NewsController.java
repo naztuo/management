@@ -1,6 +1,7 @@
 package com.dcc.controller.news;
 
 import com.alibaba.fastjson.JSON;
+import com.dcc.base.Response;
 import com.dcc.po.News;
 import com.dcc.po.NewsType;
 import com.dcc.service.NewsService;
@@ -59,9 +60,14 @@ public class NewsController {
 	}
 	
 	@RequestMapping("/addNews.do")
-	public String addNews(News news) throws Exception {
-		newsService.addNews(news);
-		return "news/news";
+	@ResponseBody
+	public Response addNews(News news) throws Exception {
+		 return Response.ok(newsService.addNews(news));
+	}
+
+	@RequestMapping("/searchNews.html")
+	public String toSearchNews(String stitle) {
+		return "news/searchNews";
 	}
 
 	@RequestMapping("/counts.do")
@@ -100,15 +106,15 @@ public class NewsController {
 	}
 	
 	@RequestMapping("/updatenew.do")
-	public String updatenew(News news) throws Exception {
-		newsService.updateNew(news);
-		return "news/news";
+	@ResponseBody
+	public Response updatenew(News news) throws Exception {
+		return Response.ok(newsService.updateNew(news));
 	}
 	
 	@RequestMapping("/addType.do")
-	public String addType(NewsType type) throws Exception {
-		newsService.addNewsType(type);
-		return "news/news_add";
+	@ResponseBody
+	public Response addType(NewsType type) throws Exception {
+		return Response.ok(newsService.addNewsType(type));
 	}
 	
 	@RequestMapping(value="/searchnews.do",produces="text/html;charset=UTF-8;")

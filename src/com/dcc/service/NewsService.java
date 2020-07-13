@@ -30,10 +30,9 @@ public class NewsService {
 
 
 	@Transactional
-	public void addNews(News news) throws Exception {
+	public int addNews(News news) throws Exception {
 		news.setDatas(Time.getTime2());
-		newsMapper.insertNews(news);
-		
+		return newsMapper.insertNews(news);
 	}
 
 	public String countNews() throws Exception {
@@ -85,8 +84,8 @@ public class NewsService {
 
 
 	@Transactional
-	public void updateNew(News news) throws Exception {
-		newsMapper.updateNew(news);
+	public int updateNew(News news) throws Exception {
+		return newsMapper.updateNew(news);
 	}
 
 

@@ -1,0 +1,142 @@
+#set($ctx=$!{request.getContextPath()})
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="${ctx}/css/layui.css" media="all">
+    <link rel="stylesheet" href="${ctx}/css/common.css">
+    <script src="${ctx}/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        var contextPath = '${ctx}';
+    </script>
+    <script type="text/javascript">
+        var cc = 0;
+        ajaxCount();
+
+        function ajaxCount() {
+            $.ajax({
+                url: contextPath + "/apply/counts.do",
+                type: "get",
+                success: function (m) {
+                    arry = JSON.parse(m);
+                    cc = arry["state"];
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">后台管理系统</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="updateAdmin.html">
+                    <img src="${ctx}/img/abc.jpg" class="layui-nav-img layui-anim layui-anim-rotate"/>
+                    <span id="user_name"></span>
+                </a>
+            </li>
+            <li class="layui-nav-item"><a href="${ctx}/signout.do">退出</a></li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test" id="leftside">
+                <script id="side" type="text/html">
+                    {{#  layui.each(d.list, function(index, item){ }}
+                    <li class="layui-nav-item">
+                        <a href="{{item.url}}"><i class="layui-icon {{item.icon}}"></i> {{item.name}}</a>
+                    </li>
+                    {{#  }); }}
+                    {{#  if(d.list.length === 0){ }}
+                    无数据
+                    {{#  } }}
+                </script>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 主体区域开始 -->
+        <!--当前位置开始-->
+        <div class="layui-card layadmin-header">
+                <span class="layui-breadcrumb">
+                      <a href="/">系统</a>
+                      <a><cite>文章管理</cite></a>
+                </span>
+        </div>
+        <!--当前位置结束-->
+        <div class="layui-row">
+            <div id="system" style="height: 350px">
+                <div>
+                    <!-- <form action="" method="post" class="layui-form" id="system_forms"> -->
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width: 200px;">
+                                <input type="text" id="keyowrds" lay-verify="required" placeholder="请输入标题"
+                                       lay-verType="tips" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-radius" id="btns">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>搜索
+                            </button>
+                        </div>
+                    </div>
+                    <!--  </form> -->
+                </div>
+                <button type="button" id="btn1" class="layui-btn" style="position: absolute; left: 1205px;top: 85px">
+                    删除
+                </button>
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <td>姓名</td>
+                        <td>手机号</td>
+                        <td>房屋大小</td>
+                        <td>申请时间</td>
+                        <td>操作</td>
+                        <td><input id="btnsd" type="checkbox" title="全选"></td>
+                    </tr>
+                    </thead>
+                    <tbody id="td">
+
+                    </tbody>
+                </table>
+                <div id="page" style="position: fixed; left: 250px;top:445px"></div>
+            </div>
+        </div>
+        <!--主体区域结束-->
+    </div>
+    <div class="layui-footer" style="text-align:center">
+        <!-- 底部固定区域 -->
+        © 版权管理
+    </div>
+</div>
+<script src="${ctx}/js/layui.js" charset="utf-8"></script>
+<script src="${ctx}/js/jquery-3.3.1.js"></script>
+<script src="${ctx}/js/common.js"></script>
+<script src="${ctx}/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="${ctx}/js/apply/apply.js"></script>
+<script>
+
+
+
+
+
+</script>
+
+</body>
+</html>

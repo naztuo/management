@@ -11,7 +11,7 @@ layui.use(['element','form','laypage','laydate','layedit','upload','laytpl'], fu
         "list":[
                 {"name":"系统主页","icon":"layui-icon-home","url":contextPath+"/index.html"},
                 {"name":"申请管理","icon":"layui-icon-file","url":contextPath+"/news/news.html"},
-                {"name":"文章管理","icon":"layui-icon-list","url":contextPath+"/news/news.html"},
+                {"name":"文章管理","icon":"layui-icon-list","url":contextPath+"/apply/apply.html"},
                 {"name":"添加文章","icon":"layui-icon-template-1","url":contextPath+"/news/news_add.html"},
                 {"name":"友情链接","icon":"layui-icon-link","url":"../html/link.html"},
                 {"name":"添加链接","icon":"layui-icon-component","url":"../html/link_add.html"},

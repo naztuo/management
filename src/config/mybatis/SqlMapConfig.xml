@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- 开启延迟加载 -->
 		<setting name="lazyLoadingEnabled" value="true" />
 		<setting name="aggressiveLazyLoading" value="false" />
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
 	</settings>
 	
 	<!-- 批量定义别名-->

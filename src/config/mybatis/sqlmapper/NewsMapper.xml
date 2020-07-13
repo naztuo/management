@@ -21,7 +21,8 @@ SELECT COUNT(*) FROM news
 </select>
 
 <select id="fenyeNews" resultType="News" parameterType="int">
-  SELECT * FROM news LIMIT #{num}, 5;
+  SELECT n.`id`, n.`title`, n.`keyword`, n.`descs`, n.`sort`, n.`imgs`, n.`source`, n.`author`, n.`datas`, nt.names as sortName
+  FROM news n, newtype nt where n.sort = nt.id LIMIT #{num}, 5;
 </select>
 
 <delete id="deleteNews" parameterType="int">
@@ -43,7 +44,7 @@ SELECT * FROM news WHERE id = #{id}
 </select>
 
 <update id="updateNew" parameterType="News">
-UPDATE news SET title =#{title},keyword=#{keyword},descs=#{descs},source=#{source},author=#{author} WHERE id = #{id}
+UPDATE news SET title =#{title},keyword=#{keyword},descs=#{descs},source=#{source},author=#{author},sort=#{sort} WHERE id = #{id}
 </update>
 
 

@@ -21,7 +21,21 @@
 			base-package="com.dcc"></context:component-scan>
 
 	<!--使用mvc:annotation-driven可以不用配置映射器和适配器 -->
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven>
+		<mvc:path-matching suffix-pattern="false"/>
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+			<!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8"/>
+			</bean>
+			<!-- 将Jackson2HttpMessageConverter的默认格式化输出设为true -->
+			<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="prettyPrint" value="true"/>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 	<!-- 开启@AspectJ AOP代理 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
